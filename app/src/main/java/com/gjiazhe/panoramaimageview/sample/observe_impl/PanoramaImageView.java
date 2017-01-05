@@ -101,17 +101,17 @@ public class PanoramaImageView extends ImageView implements ImgvObserve {
             drawableWidth = getDrawable().getIntrinsicWidth();
             drawableHeight = getDrawable().getIntrinsicHeight();
             Log.e("TAG", "onMeasure: " + pictureShowWidth + "---" + pictureShowHeight + "---" + drawableHeight + "---" + drawableWidth);
-            if (drawableHeight / pictureShowHeight > drawableWidth / pictureShowWidth) {
+            Log.e("TAG", "onMeasure: " + ((float) drawableHeight / pictureShowHeight) + "---" + ((float) drawableWidth / pictureShowWidth));
+            if ((float) drawableHeight / pictureShowHeight > (float) drawableWidth / pictureShowWidth) {
                 orientation = ORIENTATION_VERTICAL;
-                float imgScale = (float) drawableHeight / (float) pictureShowHeight;
-                maxOffset = pictureShowHeight * (imgScale - 1) * 0.5f;
-
-            } else if (drawableHeight / pictureShowHeight < drawableWidth / pictureShowWidth) {
-                orientation = ORIENTATION_HORIZONTAL;
                 float imgScale = (float) drawableWidth / (float) pictureShowWidth;
-                maxOffset = pictureShowWidth * (imgScale - 1) * 0.5f;
+                maxOffset = (drawableHeight / imgScale - pictureShowHeight) * 0.5f;
+            } else if ((float) drawableHeight / pictureShowHeight < (float) drawableWidth / pictureShowWidth) {
+                orientation = ORIENTATION_HORIZONTAL;
+                float imgScale = (float) drawableHeight / (float) pictureShowHeight;
+                maxOffset = (drawableWidth / imgScale - pictureShowWidth) * 0.5f;
             }
-//            Log.e("TAG", "onDraw:执行了方向 "+orientation);
+            Log.e("TAG", "onDraw:执行了方向 " + orientation);
         }
     }
 
@@ -221,15 +221,16 @@ public class PanoramaImageView extends ImageView implements ImgvObserve {
 
     @Override
     public void updata(double rotateRadian, int type) {
-        Log.e("TAG", "updata:角度 " + rotateRadian + "----type" + type);
+        //如果type与当前图片的type一致
         if (orientation == type) {
+            //限制旋转弧度最大为maxRotateRadian
             if (rotateRadian >= maxRotateRadian) {
                 rotateRadian = maxRotateRadian;
             } else if (rotateRadian <= -maxRotateRadian) {
                 rotateRadian = -maxRotateRadian;
             }
+            //计算出比例值
             progress = (float) (rotateRadian / maxRotateRadian);
-            Log.e("TAG", "updata进度：" + progress);
             invalidate();
         }
     }

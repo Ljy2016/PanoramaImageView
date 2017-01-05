@@ -7,7 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-import com.gjiazhe.panoramaimageview.sample.observe_interface.BaseObserved;
+import com.gjiazhe.panoramaimageview.sample.observe_interface.BaseObservedInterface;
 import com.gjiazhe.panoramaimageview.sample.observe_interface.GyroscopeControllInterface;
 
 
@@ -16,7 +16,7 @@ import com.gjiazhe.panoramaimageview.sample.observe_interface.GyroscopeControllI
  * 邮箱：enjoy_azad@sina.com
  */
 
-public class GyroscopeObserved implements SensorEventListener, BaseObserved<GyroscopeControllInterface> {
+public class GyroscopeObservedImpl implements SensorEventListener, BaseObservedInterface<GyroscopeControllInterface> {
     private SensorManager mSensorManager;
     private double rotateRadianX;
     private double rotateRadianY;
@@ -30,7 +30,7 @@ public class GyroscopeObserved implements SensorEventListener, BaseObserved<Gyro
     private static int type;
     private GyroscopeControllInterface gyroscopeControllInterface;
 
-    public GyroscopeObserved(GyroscopeControllInterface gyroscopeControllInterface) {
+    public GyroscopeObservedImpl(GyroscopeControllInterface gyroscopeControllInterface) {
         this.gyroscopeControllInterface = gyroscopeControllInterface;
     }
 
@@ -53,7 +53,6 @@ public class GyroscopeObserved implements SensorEventListener, BaseObserved<Gyro
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-//        Log.e("TAG", "register: " + "传感器事件响应");
         if (lastTimestamp == 0) {
             lastTimestamp = event.timestamp;
             return;

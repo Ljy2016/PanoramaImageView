@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.gjiazhe.panoramaimageview.sample.VerticalSampleActivity">
 
-    <com.gjiazhe.panoramaimageview.PanoramaImageView
+    <com.gjiazhe.panoramaimageview.sample.observe_impl.PanoramaImageView
         android:id="@+id/panorama_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -5,6 +5,6 @@ package com.gjiazhe.panoramaimageview.sample.observe_interface;
  * 邮箱：enjoy_azad@sina.com
  */
 
-public interface BaseObserved<T> {
+public interface BaseObservedInterface<T> {
     void updata(T t);
 }
